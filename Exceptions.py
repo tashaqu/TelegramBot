@@ -11,6 +11,8 @@ class MoneyConverter:
 
         if quote == base:
             raise APIException(f'Не удалось перевести одинаковые валюты {base}.')
+        if float(amount)<0:
+            raise APIException(f'Количество меньше нуля {amount}.')
 
         try:
             quote_ticker = keys[quote]
@@ -27,5 +29,5 @@ class MoneyConverter:
             raise APIException(f'Не удалось обработать количество {amount}')
 
         r = requests.get(f'https://min-api.cryptocompare.com/data/price?fsym={quote_ticker}&tsyms={base_ticker}')
-        total_base = float(json.loads(r.content)[base_ticker]) * amount
+        total_base = float(json.loads(r.content)[base_ticker]) * float(amount)
         return total_base
