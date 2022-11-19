@@ -33,7 +33,7 @@ def convert(message:telebot.types.Message):
 
         quote, base, amount = values
         total_base = MoneyConverter.get_price(quote, base, amount)
-    except ConvertionException as e:
+    except APIException as e:
         bot.reply_to(message, f'Ошибка пользователя.\n {e}')
     except Exception as ex:
         bot.reply_to(message, f'Не удалось обработать команду.\n {ex}')
