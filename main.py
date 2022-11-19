@@ -26,10 +26,10 @@ def values(message:telebot.types.Message):
 @bot.message_handler(content_types=['text', ])
 def convert(message:telebot.types.Message):
     try:
-        values = message.text.split(" ")
+        values = message.text.lower().split(" ")
 
         if len(values) != 3:
-            raise APIException("Слишком много параметров.")
+            raise APIException("Некорректное количество параметров.")
 
         quote, base, amount = values
         total_base = MoneyConverter.get_price(quote, base, amount)
